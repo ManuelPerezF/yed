@@ -1,65 +1,189 @@
-import Image from "next/image";
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { EntryScreen } from "@/components/entry-screen";
+import { PortfolioMenu } from "@/components/portfolio-menu";
+import { PortfolioShell } from "@/components/portfolio-shell";
+import { TopNavBar } from "@/components/top-nav-bar";
+import { PortfolioBackground } from "@/components/ui/portfolio-background";
+import { AboutSection } from "@/components/sections/about-section";
+import { ContactSection } from "@/components/sections/contact-section";
+import { ProjectsSection } from "@/components/sections/projects-section";
+import { SkillsSection } from "@/components/sections/skills-section";
+import type { SectionId } from "@/types/portfolio";
 
 export default function Home() {
+  const root = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  const [hasEntered, setHasEntered] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [displaySection, setDisplaySection] = useState<SectionId | null>(null);
+  const displaySectionRef = useRef<SectionId | null>(null);
+
+  const showLanding = !hasEntered;
+  const showSection = hasEntered && !menuOpen && displaySection !== null;
+
+  const animateIn = () => {
+    const el = contentRef.current;
+    if (!el) return;
+    gsap.killTweensOf(el);
+    gsap.fromTo(
+      el,
+      { opacity: 0, y: 28 },
+      { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" },
+    );
+  };
+
+  const goToSection = (section: SectionId) => {
+    setHasEntered(true);
+    setMenuOpen(false);
+
+    const el = contentRef.current;
+    const current = displaySectionRef.current;
+
+    if (current === section && el) {
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    if (current === null || !el) {
+      displaySectionRef.current = section;
+      setDisplaySection(section);
+      window.scrollTo(0, 0);
+      requestAnimationFrame(animateIn);
+      return;
+    }
+
+    gsap.killTweensOf(el);
+    gsap.to(el, {
+      opacity: 0,
+      y: -14,
+      duration: 0.26,
+      ease: "power2.in",
+      onComplete: () => {
+        displaySectionRef.current = section;
+        setDisplaySection(section);
+        window.scrollTo(0, 0);
+        requestAnimationFrame(() => requestAnimationFrame(animateIn));
+      },
+    });
+  };
+
+  const openMenu = () => {
+    setHasEntered(true);
+    setMenuOpen(true);
+  };
+
+  const closeMenu = () => {
+    if (displaySection === null) {
+      goToLanding();
+      return;
+    }
+    setMenuOpen(false);
+  };
+
+  const goToLanding = () => {
+    const el = contentRef.current;
+    const finish = () => {
+      displaySectionRef.current = null;
+      setDisplaySection(null);
+      setMenuOpen(false);
+      setHasEntered(false);
+      window.scrollTo(0, 0);
+    };
+
+    if (el && displaySectionRef.current !== null) {
+      gsap.killTweensOf(el);
+      gsap.to(el, {
+        opacity: 0,
+        y: -14,
+        duration: 0.24,
+        ease: "power2.in",
+        onComplete: finish,
+      });
+    } else {
+      finish();
+    }
+  };
+
+  const handleBrandClick = () => {
+    if (menuOpen || displaySection === null) {
+      goToLanding();
+      return;
+    }
+    openMenu();
+  };
+
+  const handleMenuClick = () => {
+    if (menuOpen) {
+      closeMenu();
+      return;
+    }
+    openMenu();
+  };
+
+  useEffect(() => {
+    const lockScroll = showLanding || menuOpen;
+    document.body.style.overflow = lockScroll ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showLanding, menuOpen]);
+
+  const renderSection = () => {
+    switch (displaySection) {
+      case "projects":
+        return <ProjectsSection />;
+      case "skills":
+        return <SkillsSection />;
+      case "about":
+        return <AboutSection />;
+      case "contact":
+        return <ContactSection onNavigate={goToSection} />;
+      default:
+        return null;
+    }
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main ref={root} className="w-full max-w-full overflow-x-hidden bg-background text-foreground">
+      <PortfolioBackground intensity={showLanding ? "entry" : "ambient"} />
+
+      {showLanding ? (
+        <div className="fixed inset-0 z-100 overflow-hidden">
+          <EntryScreen onOpen={openMenu} onSelectSection={goToSection} />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+      ) : null}
+
+      {hasEntered ? (
+        <>
+          <div className="site-nav-shell fixed inset-x-0 top-0 z-90">
+            <TopNavBar
+              menuOpen={menuOpen}
+              activeSection={displaySection}
+              onBrandClick={handleBrandClick}
+              onMenuClick={handleMenuClick}
+              onSectionChange={goToSection}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+          </div>
+
+          <PortfolioMenu
+            open={menuOpen}
+            activeSection={displaySection}
+            onSelectSection={goToSection}
+          />
+        </>
+      ) : null}
+
+      {showSection ? (
+        <PortfolioShell>
+          <div ref={contentRef} className="section-wrapper">
+            {renderSection()}
+          </div>
+        </PortfolioShell>
+      ) : null}
+    </main>
   );
 }
