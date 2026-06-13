@@ -19,9 +19,6 @@ function getProjectImages(project: Project) {
   return [];
 }
 
-function splitStack(stack: string) {
-  return stack.split(" · ").map((item) => item.trim()).filter(Boolean);
-}
 
 export function ProjectsSection() {
   const galleryImages = getPortfolioGalleryImages();
@@ -51,8 +48,6 @@ export function ProjectsSection() {
   const activeProject = projects[activeIndex];
   const images = getProjectImages(activeProject);
   const activeImage = images[imageIndex] ?? images[0];
-  const stackTags = splitStack(activeProject.stack);
-
   const selectProject = useCallback((projectIndex: number) => {
     setActiveIndex(projectIndex);
     setImageIndex(0);
@@ -157,14 +152,6 @@ export function ProjectsSection() {
               <p className="body-copy mt-6 max-w-2xl">{activeProject.description}</p>
             </div>
 
-            <div className="project-gallery-stack">
-              <p className="project-gallery-stack-label">Stack</p>
-              <ul className="project-gallery-stack-list">
-                {stackTags.map((tag) => (
-                  <li key={tag}>{tag}</li>
-                ))}
-              </ul>
-            </div>
           </div>
 
           <div className="project-gallery-actions">

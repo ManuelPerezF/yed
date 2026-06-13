@@ -5,7 +5,7 @@ export const person = {
   shortName: "Manuel Pérez",
   role: "Estudiante de Ciencias Computacionales y Tecnología",
   school: "Tecnológico de Monterrey · 6.º semestre",
-  bio: "Construí Proa en HackMTY 2025 con IA y Supabase, un sistema clínico con FastAPI para Clínica Nova, y Kent, app de finanzas en Electron. Me interesan productos full-stack con restricciones reales.",
+  bio: "Estudio 6.º semestre de ITC en el Tecnológico de Monterrey. Me apasiona construir software que resuelva problemas reales. A lo largo de mi carrera he desarrollado proyectos académicos y personales con impacto concreto. Siempre busco nuevas oportunidades para seguir aprendiendo, mejorar mis habilidades técnicas y crecer como desarrollador.",
   location: "Monterrey, México",
   email: "perezfonsecamanuel22@gmail.com",
   github: "https://github.com/ManuelPerezF",
@@ -34,7 +34,7 @@ export const webProjects: Project[] = [
     ],
     href: "https://github.com/atenasarita/reto-aebnl",
     github: "https://github.com/atenasarita/reto-aebnl",
-    badge: "Proyecto universitario",
+    badge: "Proyecto académico",
   },
   {
     title: "Proa",

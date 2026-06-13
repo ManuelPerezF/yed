@@ -1,30 +1,90 @@
-import { person, skillContexts } from "@/data/portfolio";
+"use client";
 
-const ALL_TOOLS = [...new Set(skillContexts.flatMap((ctx) => ctx.tools))];
+import Image from "next/image";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { person } from "@/data/portfolio";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export function AboutSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const nameRef = useRef<HTMLHeadingElement>(null);
+  const roleRef = useRef<HTMLParagraphElement>(null);
+  const bioRef = useRef<HTMLParagraphElement>(null);
+  const metaRef = useRef<HTMLDListElement>(null);
+  const imageWrapRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (reduced) {
+      gsap.set(
+        [nameRef.current, roleRef.current, bioRef.current, metaRef.current, imageWrapRef.current],
+        { opacity: 1, x: 0, y: 0 },
+      );
+      return;
+    }
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: sectionRef.current, start: "top 82%" },
+        defaults: { ease: "power3.out" },
+      });
+
+      tl.fromTo(nameRef.current, { opacity: 0, x: -28 }, { opacity: 1, x: 0, duration: 0.7 })
+        .fromTo(roleRef.current, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.45 }, "-=0.38")
+        .fromTo(bioRef.current, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.55 }, "-=0.3")
+        .fromTo(metaRef.current, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.45 }, "-=0.28");
+
+      gsap.fromTo(
+        imageWrapRef.current,
+        { opacity: 0, y: 32 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.0,
+          ease: "power3.out",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 82%" },
+        },
+      );
+
+      gsap.to(imageWrapRef.current, {
+        y: -14,
+        duration: 4.5,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+        delay: 1.1,
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section className="section-shell">
-      <div className="grid gap-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.55fr)] lg:items-start">
-        <div>
-          <h1 className="display-title max-w-2xl">{person.shortName}</h1>
-          <p className="body-copy mt-6 max-w-md text-lg text-[var(--muted)]">
-            {person.role}. {person.school}.
+    <section ref={sectionRef} className="about-section section-wrapper">
+      <div className="about-inner">
+        <div className="about-text">
+          <h1 ref={nameRef} className="about-name">
+            {person.shortName}
+          </h1>
+          <p ref={roleRef} className="about-role">
+            ITC · Tecnológico de Monterrey · 6.º semestre
           </p>
-          <p className="body-copy mt-8 max-w-md">{person.bio}</p>
-          <dl className="mt-14 grid gap-6 sm:grid-cols-2">
+          <p ref={bioRef} className="about-bio">
+            {person.bio}
+          </p>
+          <dl ref={metaRef} className="about-meta">
             <div>
-              <dt className="text-sm text-[var(--muted)]">Ubicación</dt>
-              <dd className="mt-1 font-medium">{person.location}</dd>
+              <dt>Ubicación</dt>
+              <dd>{person.location}</dd>
             </div>
             <div>
-              <dt className="text-sm text-[var(--muted)]">Contacto</dt>
-              <dd className="mt-1">
-                <a
-                  href={`mailto:${person.email}`}
-                  className="font-medium transition hover:text-[var(--accent)]"
-                >
+              <dt>Contacto</dt>
+              <dd>
+                <a href={`mailto:${person.email}`} className="about-email-link">
                   {person.email}
                 </a>
               </dd>
@@ -32,44 +92,18 @@ export function AboutSection() {
           </dl>
         </div>
 
-        <aside
-          className="about-identity flex min-h-[18rem] flex-col justify-between border border-[var(--border)] p-8 md:min-h-[22rem] md:p-10"
-          aria-label="Identidad"
-        >
-          <p className="text-[clamp(3.5rem,10vw,6rem)] font-medium leading-none tracking-tight">
-            MP
-          </p>
-          <div>
-            <p className="text-sm text-[var(--muted)]">{person.school}</p>
-            <p className="mt-2 font-medium">{person.location}</p>
-          </div>
-        </aside>
-      </div>
-
-      <div
-        className="mt-20 overflow-hidden border-t border-[var(--border)] pt-10"
-        aria-label="Herramientas"
-      >
-        <div className="group flex [--duration:38s] [--gap:0.75rem] [gap:var(--gap)] overflow-hidden">
-          {[0, 1].map((rep) => (
-            <div
-              key={rep}
-              aria-hidden={rep === 1}
-              className="animate-marquee flex shrink-0 [gap:var(--gap)] group-hover:[animation-play-state:paused]"
-            >
-              {ALL_TOOLS.map((tool) => (
-                <span
-                  key={`${rep}-${tool}`}
-                  className="shrink-0 whitespace-nowrap border border-[var(--border)] px-3 py-1.5 text-sm text-[var(--muted)]"
-                >
-                  {tool}
-                </span>
-              ))}
-            </div>
-          ))}
+        <div ref={imageWrapRef} className="about-image-col" aria-hidden>
+          <div className="about-glow" />
+          <Image
+            src="/yo.png"
+            alt="Manuel Pérez"
+            width={420}
+            height={420}
+            className="about-photo"
+            priority
+          />
         </div>
       </div>
-
     </section>
   );
 }
