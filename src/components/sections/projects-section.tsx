@@ -5,7 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { PortfolioGallery } from "@/components/ui/portfolio-gallery";
-import { projects } from "@/data/portfolio";
+import { person, projects } from "@/data/portfolio";
 import { getPortfolioGalleryImages } from "@/lib/portfolio-gallery";
 import type { Project } from "@/types/portfolio";
 
@@ -61,8 +61,8 @@ export function ProjectsSection() {
         onImageClick={selectProject}
         className="project-section-gallery"
         archiveButton={{
-          text: "Ver en GitHub",
-          href: activeProject.github ?? activeProject.href,
+          text: "Ver todo en GitHub",
+          href: person.github,
         }}
       />
 
@@ -73,7 +73,9 @@ export function ProjectsSection() {
       >
         <div className="project-gallery-meta">
           <p className="project-gallery-counter">
-            {String(activeIndex + 1).padStart(2, "0")}
+            <span className="project-gallery-counter-active">
+              {String(activeIndex + 1).padStart(2, "0")}
+            </span>
             <span className="project-gallery-counter-sep">/</span>
             {String(projects.length).padStart(2, "0")}
           </p>
@@ -85,7 +87,10 @@ export function ProjectsSection() {
 
         <div className="project-gallery-stage">
           {activeImage ? (
-            <div ref={imageWrapRef} className="project-gallery-main group relative aspect-[16/10] overflow-hidden">
+            <div
+              ref={imageWrapRef}
+              className="project-gallery-main group relative aspect-[16/10] overflow-hidden border border-[var(--border)]"
+            >
               <Image
                 key={activeImage.src}
                 src={activeImage.src}

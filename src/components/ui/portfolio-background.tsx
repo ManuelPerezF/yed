@@ -9,8 +9,8 @@ type PortfolioBackgroundProps = {
   className?: string;
 };
 
-const ENTRY_COLORS: [string, string, string] = ["#3b0764", "#8b5cf6", "#1e3a8a"];
-const AMBIENT_COLORS: [string, string, string] = ["#1e0a4d", "#5b21b6", "#0f1f4a"];
+const ENTRY_COLORS: [string, string, string] = ["#7c3aed", "#c026d3", "#f59e0b"];
+const AMBIENT_COLORS: [string, string, string] = ["#5b21b6", "#9d174d", "#b45309"];
 
 export function PortfolioBackground({
   intensity = "ambient",
@@ -23,12 +23,19 @@ export function PortfolioBackground({
       className={cn("portfolio-bg pointer-events-none", className)}
       aria-hidden
     >
-      <Aurora
-        colorStops={isEntry ? ENTRY_COLORS : AMBIENT_COLORS}
-        amplitude={isEntry ? 1.3 : 0.7}
-        blend={isEntry ? 0.5 : 0.38}
-        speed={isEntry ? 1.0 : 0.6}
-      />
+      <div
+        className={cn(
+          "portfolio-bg__aurora",
+          isEntry && "portfolio-bg__aurora--entry",
+        )}
+      >
+        <Aurora
+          colorStops={isEntry ? ENTRY_COLORS : AMBIENT_COLORS}
+          amplitude={isEntry ? 1.8 : 1.0}
+          blend={isEntry ? 0.22 : 0.18}
+          speed={isEntry ? 1.8 : 1.0}
+        />
+      </div>
       <div className="portfolio-bg__vignette" />
       <div className="ambient-grain" />
     </div>

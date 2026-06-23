@@ -62,18 +62,18 @@ struct ColorStop {
   float position;
 };
 
-#define COLOR_RAMP(colors, factor, finalColor) {                              \
-  int index = 0;                                                              \
-  for (int i = 0; i < 2; i++) {                                               \
-    ColorStop currentColor = colors[i];                                       \
-    bool isInBetween = currentColor.position <= factor;                       \
-    index = int(mix(float(index), float(i), float(isInBetween)));             \
-  }                                                                           \
-  ColorStop currentColor = colors[index];                                     \
-  ColorStop nextColor = colors[index + 1];                                    \
-  float range = nextColor.position - currentColor.position;                   \
-  float lerpFactor = (factor - currentColor.position) / range;                \
-  finalColor = mix(currentColor.color, nextColor.color, lerpFactor);          \
+#define COLOR_RAMP(colors, factor, finalColor) {                              \\
+  int index = 0;                                                              \\
+  for (int i = 0; i < 2; i++) {                                               \\
+    ColorStop currentColor = colors[i];                                       \\
+    bool isInBetween = currentColor.position <= factor;                       \\
+    index = int(mix(float(index), float(i), float(isInBetween)));             \\
+  }                                                                           \\
+  ColorStop currentColor = colors[index];                                     \\
+  ColorStop nextColor = colors[index + 1];                                    \\
+  float range = nextColor.position - currentColor.position;                   \\
+  float lerpFactor = (factor - currentColor.position) / range;                \\
+  finalColor = mix(currentColor.color, nextColor.color, lerpFactor);          \\
 }
 
 void main() {
@@ -109,7 +109,7 @@ type AuroraProps = {
 };
 
 export function Aurora({
-  colorStops = ["#2d1b69", "#7c3aed", "#1e3a8a"],
+  colorStops = ["#7c3aed", "#c026d3", "#f59e0b"],
   amplitude = 1.0,
   blend = 0.5,
   speed = 1.0,

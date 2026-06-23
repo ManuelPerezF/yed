@@ -60,7 +60,7 @@ export function SkillsSection() {
               {block.tools.map((tool) => (
                 <li
                   key={tool}
-                  className="skill-tag px-3 py-1.5 text-sm border border-[var(--border)] text-[oklch(0.94_0.008_280/0.82)] transition-colors duration-300 hover:border-[var(--accent)] hover:text-[var(--foreground)]"
+                  className="skill-tag px-3 py-1.5 text-sm border border-[var(--border)] text-[oklch(0.94_0.004_290/0.82)] transition-colors duration-300 hover:border-[var(--accent)] hover:text-[var(--foreground)]"
                 >
                   {tool}
                 </li>

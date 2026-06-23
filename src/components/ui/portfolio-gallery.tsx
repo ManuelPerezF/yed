@@ -43,7 +43,7 @@ export function PortfolioGallery({
 
   return (
     <section aria-label={title} className={cn("relative", className)} id="archives">
-      <div className="overflow-hidden border border-[var(--border)] bg-[var(--card)]">
+      <div className="overflow-hidden border border-[var(--border)] bg-[oklch(0.21_0.006_290)]">
         <div className="relative z-10 px-6 pb-6 pt-12 text-center md:px-10 md:pt-14">
           <h2 className="display-title mx-auto max-w-5xl text-balance">{title}</h2>
 
