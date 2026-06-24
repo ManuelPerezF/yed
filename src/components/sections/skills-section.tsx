@@ -34,7 +34,7 @@ export function SkillsSection() {
   return (
     <section className="section-shell">
       <div className="max-w-3xl">
-        <h1 className="display-title">Stack en proyectos reales.</h1>
+        <h1 className="section-heading">Stack en proyectos reales.</h1>
         <p className="body-copy mt-6">
           Sin porcentajes autoevaluados. Cada herramienta aparece donde la usé.
         </p>

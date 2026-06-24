@@ -1,176 +1,126 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { PortfolioGallery } from "@/components/ui/portfolio-gallery";
-import { person, projects } from "@/data/portfolio";
-import { getPortfolioGalleryImages } from "@/lib/portfolio-gallery";
-import type { Project } from "@/types/portfolio";
-
-gsap.registerPlugin(ScrollTrigger);
-
-function getProjectImages(project: Project) {
-  if (project.gallery?.length) return project.gallery;
-  if (project.image) {
-    return [{ src: project.image, alt: `Captura del proyecto ${project.title}` }];
-  }
-  return [];
-}
-
+import Link from "next/link";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
+import { projects } from "@/data/portfolio";
 
 export function ProjectsSection() {
-  const galleryImages = getPortfolioGalleryImages();
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [imageIndex, setImageIndex] = useState(0);
-  const imageWrapRef = useRef<HTMLDivElement>(null);
+  const [api, setApi] = useState<CarouselApi>();
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(false);
+  const [selected, setSelected] = useState(0);
 
   useEffect(() => {
-    const el = imageWrapRef.current;
-    if (!el) return;
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        el,
-        { scale: 0.93, opacity: 0 },
-        {
-          scale: 1,
-          opacity: 1,
-          duration: 0.65,
-          ease: "power3.out",
-          scrollTrigger: { trigger: el, start: "top 88%" },
-        },
-      );
-    });
-    return () => ctx.revert();
-  }, [activeIndex]);
+    if (!api) return;
+    const onSelect = () => {
+      setCanScrollPrev(api.canScrollPrev());
+      setCanScrollNext(api.canScrollNext());
+      setSelected(api.selectedScrollSnap());
+    };
+    onSelect();
+    api.on("select", onSelect);
+    api.on("reInit", onSelect);
+    return () => {
+      api.off("select", onSelect);
+      api.off("reInit", onSelect);
+    };
+  }, [api]);
 
-  const activeProject = projects[activeIndex];
-  const images = getProjectImages(activeProject);
-  const activeImage = images[imageIndex] ?? images[0];
-  const selectProject = useCallback((projectIndex: number) => {
-    setActiveIndex(projectIndex);
-    setImageIndex(0);
-  }, []);
+  const scrollTo = useCallback((index: number) => api?.scrollTo(index), [api]);
 
   return (
-    <section className="section-shell project-section">
-      <PortfolioGallery
-        title="Cuatro proyectos, cuatro contextos distintos."
-        images={galleryImages}
-        onImageClick={selectProject}
-        className="project-section-gallery"
-        archiveButton={{
-          text: "Ver todo en GitHub",
-          href: person.github,
-        }}
-      />
-
-      <article
-        className="project-gallery-detail project-section-detail"
-        aria-live="polite"
-        aria-label={`Detalle de ${activeProject.title}`}
-      >
-        <div className="project-gallery-meta">
-          <p className="project-gallery-counter">
-            <span className="project-gallery-counter-active">
-              {String(activeIndex + 1).padStart(2, "0")}
-            </span>
-            <span className="project-gallery-counter-sep">/</span>
-            {String(projects.length).padStart(2, "0")}
-          </p>
-          <p className="project-gallery-kind">
-            {activeProject.category === "web" ? "Web" : "App"}
-            {activeProject.badge ? ` · ${activeProject.badge}` : ""}
+    <section className="section-shell project-section" id="proyectos">
+      <div className="project-carousel-header">
+        <div className="max-w-2xl">
+          <h1 className="section-heading text-balance">Proyectos seleccionados</h1>
+          <p className="body-copy mt-6">
+            Cosas que he hecho intentando dejar mi huella en el universo.
           </p>
         </div>
 
-        <div className="project-gallery-stage">
-          {activeImage ? (
-            <div
-              ref={imageWrapRef}
-              className="project-gallery-main group relative aspect-[16/10] overflow-hidden border border-[var(--border)]"
-            >
-              <Image
-                key={activeImage.src}
-                src={activeImage.src}
-                alt={activeImage.alt}
-                fill
-                priority={activeIndex === 0 && imageIndex === 0}
-                className="object-cover object-top transition duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.02]"
-                sizes="(max-width: 1024px) 100vw, 80rem"
-              />
-              <div className="project-gallery-main-shade" aria-hidden />
-            </div>
-          ) : (
-            <div className="project-row-fallback flex aspect-[16/10] flex-col justify-between p-8 md:p-12">
-              <p className="text-sm text-[var(--muted)]">{activeProject.badge}</p>
-              <div>
-                <p className="text-[clamp(2.5rem,6vw,4.5rem)] font-medium leading-none tracking-tight">
-                  {activeProject.title}
-                </p>
-                {activeProject.subtitle ? (
-                  <p className="mt-4 text-[var(--muted)]">{activeProject.subtitle}</p>
-                ) : null}
-              </div>
-            </div>
-          )}
+        <div className="carousel-nav">
+          <button
+            type="button"
+            className="carousel-nav-btn"
+            onClick={() => api?.scrollPrev()}
+            disabled={!canScrollPrev}
+            aria-label="Proyecto anterior"
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </button>
+          <button
+            type="button"
+            className="carousel-nav-btn"
+            onClick={() => api?.scrollNext()}
+            disabled={!canScrollNext}
+            aria-label="Proyecto siguiente"
+          >
+            <ArrowRight className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
 
-          {images.length > 1 ? (
-            <div
-              className="project-gallery-thumbs"
-              role="tablist"
-              aria-label={`Capturas de ${activeProject.title}`}
-            >
-              {images.map((image, index) => (
-                <button
-                  key={image.src}
-                  type="button"
-                  role="tab"
-                  aria-selected={index === imageIndex}
-                  aria-label={image.alt}
-                  onClick={() => setImageIndex(index)}
-                  className={`project-gallery-thumb group ${
-                    index === imageIndex ? "project-gallery-thumb--active" : ""
-                  }`}
+      <Carousel setApi={setApi} opts={{ align: "start", loop: false, dragFree: true }}>
+        <CarouselContent className="-ml-4">
+          {projects.map((project) => {
+            const previewImage = project.image ?? project.gallery?.[0]?.src;
+
+            return (
+              <CarouselItem
+                key={project.slug}
+                className="basis-[78%] pl-4 sm:basis-[48%] lg:basis-[28%]"
+              >
+                <Link
+                  href={`/proyectos/${project.slug}`}
+                  className="project-card group"
+                  aria-label={`Ver caso de estudio: ${project.title}`}
                 >
-                  <Image
-                    src={image.src}
-                    alt=""
-                    fill
-                    className="object-cover object-top transition duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
-                    sizes="144px"
-                  />
-                </button>
-              ))}
-            </div>
-          ) : null}
-        </div>
+                  {previewImage ? (
+                    <Image
+                      src={previewImage}
+                      alt={`Captura de ${project.title}`}
+                      fill
+                      className="object-cover object-top"
+                      sizes="(max-width: 640px) 78vw, (max-width: 1024px) 48vw, 28vw"
+                    />
+                  ) : null}
+                  <div className="project-card-shade" aria-hidden />
+                  <div className="project-card-body">
+                    <span className="project-card-kind">
+                      {project.category === "web" ? "Web" : "App"}
+                      {project.badge ? ` · ${project.badge}` : ""}
+                    </span>
+                    <h3 className="project-card-title">{project.title}</h3>
+                    <p className="project-card-desc">{project.subtitle ?? project.description}</p>
+                    <span className="project-card-cta">
+                      Ver caso completo
+                      <ArrowUpRight className="h-3.5 w-3.5" />
+                    </span>
+                  </div>
+                </Link>
+              </CarouselItem>
+            );
+          })}
+        </CarouselContent>
+      </Carousel>
 
-        <div className="project-gallery-copy">
-          <div className="project-gallery-copy-grid">
-            <div className="min-w-0">
-              <h2 className="project-gallery-title">{activeProject.title}</h2>
-              {activeProject.subtitle ? (
-                <p className="project-gallery-subtitle">{activeProject.subtitle}</p>
-              ) : null}
-              <p className="body-copy mt-6 max-w-2xl">{activeProject.description}</p>
-            </div>
-
-          </div>
-
-          <div className="project-gallery-actions">
-            <a
-              href={activeProject.github ?? activeProject.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary"
-            >
-              Ver en GitHub
-            </a>
-          </div>
-        </div>
-      </article>
+      <div className="carousel-dots">
+        {projects.map((project, index) => (
+          <button
+            key={project.slug}
+            type="button"
+            className="carousel-dot-btn"
+            aria-label={`Ir al proyecto ${index + 1}: ${project.title}`}
+            aria-current={selected === index}
+            onClick={() => scrollTo(index)}
+          >
+            <span className="carousel-dot" />
+          </button>
+        ))}
+      </div>
     </section>
   );
 }
