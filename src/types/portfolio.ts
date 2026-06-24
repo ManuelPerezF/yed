@@ -11,6 +11,7 @@ export type Project = {
   subtitle?: string;
   category: "web" | "app";
   stack: string;
+  stackBadges: string[];
   description: string;
   cover?: string;
   image?: string;

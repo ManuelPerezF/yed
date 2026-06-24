@@ -19,6 +19,7 @@ export const webProjects: Project[] = [
     subtitle: "Plataforma para asociación civil",
     category: "web",
     stack: "React 19 · Vite · TypeScript · Node.js · Express · Oracle DB",
+    stackBadges: ["React", "Express", "OracleDB", "Vite"],
     description:
       "Sistema integral para la Asociación de Espina Bífida de Nuevo León. Sitio público, preregistro de beneficiarios y dashboard operativo con gestión de citas, inventario, donaciones y reportes analíticos.",
     role: "Full-stack",
@@ -64,6 +65,7 @@ export const webProjects: Project[] = [
     subtitle: "Asesor financiero digital",
     category: "web",
     stack: "Next.js 14 · TypeScript · Supabase · Google Gemini · MCP",
+    stackBadges: ["React", "Next", "Supabase", "MCP"],
     description:
       "Plataforma financiera con IA para HackMTY 2025 (Banorte Open Innovation). Dashboard interactivo y asistente conversacional con Gemini.",
     role: "Full-stack",
@@ -115,6 +117,7 @@ export const appProjects: Project[] = [
     subtitle: "Solución clínica full-stack",
     category: "app",
     stack: "FastAPI · Python · SwiftUI · Microsoft SQL Server",
+    stackBadges: ["SwiftUI", "MSQLServer", "FastAPI", "Python"],
     description:
       "Sistema con Clínica Nova para gestionar ambulancias y citas programadas. Control operativo y eficiencia en traslados.",
     role: "Full-stack · SwiftUI",
@@ -159,6 +162,7 @@ export const appProjects: Project[] = [
     subtitle: "Finanzas personales en escritorio",
     category: "app",
     stack: "React · TypeScript · Electron · Express · Prisma · SQLite",
+    stackBadges: ["React", "SQLite", "Prisma", "Electron"],
     description:
       "App de finanzas con cliente Electron y API Express. Ingresos, gastos, cuentas, suscripciones y reportes con gráficas.",
     role: "Full-stack",

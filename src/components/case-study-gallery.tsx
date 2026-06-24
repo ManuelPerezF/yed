@@ -31,7 +31,7 @@ export function CaseStudyGallery({ images }: CaseStudyGalleryProps) {
   if (images.length === 0) return null;
 
   return (
-    <div className="mt-10">
+    <div className="case-study-gallery">
       <Carousel setApi={setApi} opts={{ align: "start", loop: images.length > 1 }}>
         <CarouselContent>
           {images.map((image, index) => (

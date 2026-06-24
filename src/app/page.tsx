@@ -13,6 +13,18 @@ import { ProjectsSection } from "@/components/sections/projects-section";
 import { SkillsSection } from "@/components/sections/skills-section";
 import type { SectionId } from "@/types/portfolio";
 
+const hashSectionMap: Record<string, SectionId> = {
+  proyectos: "projects",
+  skills: "skills",
+  contacto: "contact",
+  "sobre-mi": "about",
+};
+
+function getSectionFromHash(hash: string): SectionId | null {
+  const id = hash.replace(/^#/, "");
+  return hashSectionMap[id] ?? null;
+}
+
 export default function Home() {
   const root = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -131,6 +143,23 @@ export default function Home() {
       document.body.style.overflow = "";
     };
   }, [showLanding, menuOpen]);
+
+  useEffect(() => {
+    const openFromHash = () => {
+      const section = getSectionFromHash(window.location.hash);
+      if (!section) return;
+
+      displaySectionRef.current = section;
+      setDisplaySection(section);
+      setHasEntered(true);
+      setMenuOpen(false);
+      window.scrollTo(0, 0);
+    };
+
+    openFromHash();
+    window.addEventListener("hashchange", openFromHash);
+    return () => window.removeEventListener("hashchange", openFromHash);
+  }, []);
 
   const renderSection = () => {
     switch (displaySection) {

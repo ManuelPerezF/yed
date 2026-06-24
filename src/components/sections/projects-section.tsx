@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { ProjectCardStack } from "@/components/project-card-stack";
 import { projects } from "@/data/portfolio";
 
 export function ProjectsSection() {
@@ -42,6 +43,7 @@ export function ProjectsSection() {
                       }
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
+                    <ProjectCardStack stackBadges={project.stackBadges} />
                   </div>
                 ) : null}
                 <div className="project-card-body">
