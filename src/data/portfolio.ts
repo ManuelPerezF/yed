@@ -94,6 +94,16 @@ export const appProjects: Project[] = [
     stack: "React · TypeScript · Electron · Express · Prisma · SQLite",
     description:
       "App de finanzas con cliente Electron y API Express. Ingresos, gastos, cuentas, suscripciones y reportes con gráficas.",
+    image: "/projects/kent/resumen.jpg",
+    gallery: [
+      { src: "/projects/kent/login.jpg", alt: "Pantalla de acceso de Kent" },
+      { src: "/projects/kent/resumen.jpg", alt: "Resumen financiero de Kent" },
+      { src: "/projects/kent/movimientos.jpg", alt: "Movimientos en Kent" },
+      { src: "/projects/kent/categorias.jpg", alt: "Categorías en Kent" },
+      { src: "/projects/kent/cuentas.jpg", alt: "Cuentas en Kent" },
+      { src: "/projects/kent/suscripciones.jpg", alt: "Suscripciones en Kent" },
+      { src: "/projects/kent/reportes.jpg", alt: "Reportes en Kent" },
+    ],
     href: "https://github.com/ManuelPerezF/kent",
     github: "https://github.com/ManuelPerezF/kent",
     badge: "Proyecto personal",
