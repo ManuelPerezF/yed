@@ -43,10 +43,15 @@ body {
   font-weight: 500;
   line-height: 0.95;
   letter-spacing: -0.03em;
+  color: var(--foreground);
+}
+
+.display-title--gradient {
   background: linear-gradient(100deg, #7c3aed 0%, #c026d3 45%, #f59e0b 100%);
   background-size: 180% 100%;
   background-clip: text;
   -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   color: transparent;
   animation: aurora-text-shift 14s ease-in-out infinite alternate;
 }
@@ -61,18 +66,10 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .display-title {
+  .display-title--gradient {
     animation: none;
     background-position: 30% 50%;
   }
-}
-
-.section-heading {
-  font-size: clamp(2.25rem, 4.2vw, 4.5rem);
-  font-weight: 500;
-  line-height: 0.95;
-  letter-spacing: -0.03em;
-  color: var(--foreground);
 }
 
 .body-copy {
@@ -153,6 +150,10 @@ body {
   opacity: 0.85;
 }
 
+.portfolio-bg__aurora--ambient {
+  opacity: 0.72;
+}
+
 .portfolio-bg__vignette {
   position: absolute;
   inset: 0;
@@ -164,6 +165,16 @@ body {
     ),
     linear-gradient(to bottom, oklch(0.08 0.006 290 / 0.35) 0%, transparent 30%);
   pointer-events: none;
+}
+
+.portfolio-bg__vignette--ambient {
+  background:
+    radial-gradient(
+      ellipse 90% 80% at 50% 40%,
+      transparent 30%,
+      oklch(0.08 0.006 290 / 0.28) 100%
+    ),
+    linear-gradient(to bottom, oklch(0.08 0.006 290 / 0.15) 0%, transparent 28%);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -297,8 +308,8 @@ body {
   pointer-events: none;
   background: linear-gradient(
     to bottom,
-    oklch(0.13 0.006 290 / 0.96) 0%,
-    oklch(0.13 0.006 290 / 0.78) 75%,
+    oklch(0.13 0.006 290 / 0.42) 0%,
+    oklch(0.13 0.006 290 / 0.12) 55%,
     transparent 100%
   );
 }
@@ -352,7 +363,7 @@ body {
 .site-nav-section {
   font-size: 0.8125rem;
   font-weight: 500;
-  color: var(--muted);
+  color: oklch(0.94 0.004 290 / 0.42);
   white-space: nowrap;
 }
 
@@ -361,6 +372,10 @@ body {
 }
 
 .site-nav-section--active {
+  color: var(--accent);
+}
+
+.site-nav-section--active:hover {
   color: var(--accent);
 }
 

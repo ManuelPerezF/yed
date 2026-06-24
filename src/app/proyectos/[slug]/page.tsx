@@ -72,7 +72,7 @@ export default async function ProjectDetailPage({ params }: Params) {
           ) : null}
         </span>
 
-        <h1 className="display-title text-balance">{project.title}</h1>
+        <h1 className="display-title display-title--gradient text-balance">{project.title}</h1>
 
         {project.subtitle ? (
           <p className="text-lg text-[var(--muted)]">{project.subtitle}</p>

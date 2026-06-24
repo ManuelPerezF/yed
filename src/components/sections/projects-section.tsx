@@ -35,7 +35,7 @@ export function ProjectsSection() {
     <section className="section-shell project-section" id="proyectos">
       <div className="project-carousel-header">
         <div className="max-w-2xl">
-          <h1 className="section-heading text-balance">Proyectos seleccionados</h1>
+          <h1 className="display-title text-balance">Proyectos seleccionados</h1>
           <p className="body-copy mt-6">
             Cosas que he hecho intentando dejar mi huella en el universo.
           </p>
