@@ -78,6 +78,30 @@ export function getFeaturedStack(stack: string): string[] {
   return [...withIcons, ...withoutIcons].slice(0, MAX_STACK_BADGES);
 }
 
+export function getStackDisplayLabel(tech: string): string {
+  const normalized = normalizeStackName(tech);
+  const labels: Record<string, string> = {
+    react: "React",
+    express: "Express",
+    oracledb: "Oracle",
+    oracle: "Oracle",
+    vite: "Vite",
+    next: "Next.js",
+    nextjs: "Next.js",
+    supabase: "Supabase",
+    mcp: "MCP",
+    swiftui: "SwiftUI",
+    msqlserver: "SQL Server",
+    fastapi: "FastAPI",
+    python: "Python",
+    sqlite: "SQLite",
+    prisma: "Prisma",
+    electron: "Electron",
+  };
+
+  return labels[normalized] ?? tech;
+}
+
 export function getStackBadgeLabel(tech: string): string {
   const normalized = normalizeStackName(tech);
   if (normalized === "microsoft sql server") return "SQL";
