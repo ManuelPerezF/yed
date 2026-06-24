@@ -41,6 +41,7 @@ export const webProjects: Project[] = [
       "Trabajar con Oracle DB en un stack que normalmente usa Postgres/MySQL.",
       "Dividir un sistema grande en módulos independientes sin perder cohesión de producto.",
     ],
+    cover: "/projects/covers/aebnl.png",
     image: "/projects/aebnl/landing.png",
     gallery: [
       { src: "/projects/aebnl/landing.png", alt: "Landing pública de AEBNL" },
@@ -85,6 +86,7 @@ export const webProjects: Project[] = [
       "Priorizar lo imprescindible cuando el tiempo es el principal constraint.",
       "Comunicación técnica rápida en un equipo que no se conocía previamente.",
     ],
+    cover: "/projects/covers/banorte.png",
     image: "/projects/proa/landing.jpg",
     gallery: [
       {
@@ -135,6 +137,7 @@ export const appProjects: Project[] = [
       "Separar responsabilidades entre API, modelo y cliente cuando el equipo es grande.",
       "Balancear tiempo de diseño vs iteración cuando el cliente aún está definiendo alcance.",
     ],
+    cover: "/projects/covers/nova.png",
     image: "/projects/ambulance/asm1.png",
     gallery: [
       {

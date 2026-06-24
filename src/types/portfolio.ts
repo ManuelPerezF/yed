@@ -12,6 +12,7 @@ export type Project = {
   category: "web" | "app";
   stack: string;
   description: string;
+  cover?: string;
   image?: string;
   gallery?: ProjectImage[];
   href: string;
