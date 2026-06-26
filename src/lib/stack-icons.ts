@@ -9,13 +9,13 @@ const STACK_ICON_MAP: Record<string, StackIcon> = {
   typescript: { slug: "typescript", color: "3178C6" },
   "node.js": { slug: "nodedotjs", color: "5FA04E" },
   nodejs: { slug: "nodedotjs", color: "5FA04E" },
-  express: { slug: "express", color: "000000" },
+  express: { slug: "express", color: "FFFFFF" },
   "oracle db": { slug: "oracle", color: "F80000" },
   oracle: { slug: "oracle", color: "F80000" },
   oracledb: { slug: "oracle", color: "F80000" },
-  "next.js": { slug: "nextdotjs", color: "000000" },
-  nextjs: { slug: "nextdotjs", color: "000000" },
-  next: { slug: "nextdotjs", color: "000000" },
+  "next.js": { slug: "nextdotjs", color: "FFFFFF" },
+  nextjs: { slug: "nextdotjs", color: "FFFFFF" },
+  next: { slug: "nextdotjs", color: "FFFFFF" },
   msqlserver: { slug: "microsoftsqlserver", color: "CC2927" },
   supabase: { slug: "supabase", color: "3FCF8E" },
   "google gemini": { slug: "googlegemini", color: "8E75B2" },
@@ -24,11 +24,11 @@ const STACK_ICON_MAP: Record<string, StackIcon> = {
   swiftui: { slug: "swift", color: "F05138" },
   "microsoft sql server": { slug: "microsoftsqlserver", color: "CC2927" },
   electron: { slug: "electron", color: "47848F" },
-  prisma: { slug: "prisma", color: "2D3748" },
-  sqlite: { slug: "sqlite", color: "003B57" },
-  jwt: { slug: "jsonwebtokens", color: "000000" },
+  prisma: { slug: "prisma", color: "FFFFFF" },
+  sqlite: { slug: "sqlite", color: "5B9BD1" },
+  jwt: { slug: "jsonwebtokens", color: "FFFFFF" },
   cloudinary: { slug: "cloudinary", color: "3448C5" },
-  mcp: { slug: "mcp", color: "000000" },
+  mcp: { slug: "mcp", color: "FFFFFF" },
 };
 
 const CUSTOM_ICON_URLS: Record<string, string> = {
@@ -37,7 +37,7 @@ const CUSTOM_ICON_URLS: Record<string, string> = {
     "https://api.iconify.design/devicon/microsoftsqlserver.svg",
   vite: "https://api.iconify.design/devicon/vitejs.svg",
   fastapi: "https://api.iconify.design/devicon/fastapi.svg",
-  mcp: "https://api.iconify.design/bxl/mcp.svg",
+  mcp: "https://api.iconify.design/bxl/mcp.svg?color=%23ffffff",
 };
 
 function normalizeStackName(tech: string): string {

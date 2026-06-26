@@ -43,16 +43,18 @@ export function ProjectsSection() {
                       }
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
-                    <ProjectCardStack stackBadges={project.stackBadges} />
                   </div>
                 ) : null}
                 <div className="project-card-body">
                   <h3 className="project-card-title">{project.title}</h3>
                   <p className="project-card-desc">{project.description}</p>
-                  <span className="project-card-cta">
-                    Ver proyecto
-                    <ArrowUpRight className="h-3.5 w-3.5" />
-                  </span>
+                  <div className="project-card-footer">
+                    <span className="project-card-cta">
+                      Ver proyecto
+                      <ArrowUpRight className="h-3.5 w-3.5" />
+                    </span>
+                    <ProjectCardStack stackBadges={project.stackBadges} />
+                  </div>
                 </div>
               </Link>
             </li>
