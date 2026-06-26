@@ -11,6 +11,10 @@ export const metadata: Metadata = {
   title: "manudev — Manuel Pérez",
   description:
     "Portafolio de Manuel Antonio Pérez Fonseca. Estudiante de CS en Tecnológico de Monterrey. Full-stack: Next.js, React, FastAPI, SwiftUI.",
+  icons: {
+    icon: "/yo.png",
+    apple: "/yo.png",
+  },
 };
 
 export default function RootLayout({
