@@ -10,7 +10,7 @@ type EntryScreenProps = {
   onSelectSection: (section: SectionId) => void;
 };
 
-const OPEN_LABEL = "Open";
+const OPEN_LABEL = "Hola";
 
 export function EntryScreen({ onOpen, onSelectSection }: EntryScreenProps) {
   const chromeRef = useRef<HTMLDivElement>(null);

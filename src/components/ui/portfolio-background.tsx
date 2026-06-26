@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Aurora } from "./aurora";
+import AnimatedGradientBackground from "./animated-gradient-background";
 
 type PortfolioBackgroundProps = {
   /** Entry = cinematic landing. Ambient = subtle interior. */
@@ -9,8 +9,11 @@ type PortfolioBackgroundProps = {
   className?: string;
 };
 
-const ENTRY_COLORS: [string, string, string] = ["#7c3aed", "#c026d3", "#f59e0b"];
-const AMBIENT_COLORS: [string, string, string] = ["#5b21b6", "#9d174d", "#b45309"];
+const ENTRY_GRADIENT = ["#0A0A0A", "#7c3aed", "#c026d3", "#f59e0b"];
+const ENTRY_STOPS = [30, 55, 75, 100];
+
+const AMBIENT_GRADIENT = ["#0A0A0A", "#5b21b6", "#9d174d", "#b45309"];
+const AMBIENT_STOPS = [25, 50, 75, 100];
 
 export function PortfolioBackground({
   intensity = "ambient",
@@ -29,11 +32,14 @@ export function PortfolioBackground({
           isEntry ? "portfolio-bg__aurora--entry" : "portfolio-bg__aurora--ambient",
         )}
       >
-        <Aurora
-          colorStops={isEntry ? ENTRY_COLORS : AMBIENT_COLORS}
-          amplitude={isEntry ? 1.8 : 1.15}
-          blend={isEntry ? 0.22 : 0.2}
-          speed={isEntry ? 1.8 : 1.0}
+        <AnimatedGradientBackground
+          startingGap={isEntry ? 90 : 115}
+          Breathing
+          gradientColors={isEntry ? ENTRY_GRADIENT : AMBIENT_GRADIENT}
+          gradientStops={isEntry ? ENTRY_STOPS : AMBIENT_STOPS}
+          animationSpeed={isEntry ? 0.025 : 0.015}
+          breathingRange={isEntry ? 8 : 5}
+          topOffset={isEntry ? 0 : 0}
         />
       </div>
       <div

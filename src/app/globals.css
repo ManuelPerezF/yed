@@ -243,8 +243,12 @@ body {
   padding-left: 0.6rem;
 }
 
-.menu-panel-link--active {
-  color: var(--accent);
+.menu-panel-link--active span:first-child {
+  background: linear-gradient(90deg, #7c3aed, #c026d3, #f59e0b);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
 .menu-panel-link--active .menu-panel-arrow {
@@ -372,11 +376,19 @@ body {
 }
 
 .site-nav-section--active {
-  color: var(--accent);
+  background: linear-gradient(90deg, #7c3aed, #c026d3, #f59e0b);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
 .site-nav-section--active:hover {
-  color: var(--accent);
+  background: linear-gradient(90deg, #7c3aed, #c026d3, #f59e0b);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
 .site-nav-menu {
