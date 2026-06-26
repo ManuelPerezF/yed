@@ -1,4 +1,4 @@
-import type { Project, SectionId, SkillContext } from "@/types/portfolio";
+import type { Project, SectionId, StackCategory } from "@/types/portfolio";
 
 export const person = {
   name: "Manuel Antonio Pérez Fonseca",
@@ -203,26 +203,46 @@ export const appProjects: Project[] = [
 
 export const projects = [...webProjects, ...appProjects];
 
-export const skillContexts: SkillContext[] = [
+export const stackCategories: StackCategory[] = [
   {
-    project: "AEBNL Platform",
-    context: "Asociación civil · sistema operativo web",
-    tools: ["React 19", "Vite", "TypeScript", "Node.js", "Express", "Oracle DB", "JWT", "Cloudinary"],
+    label: "Frontend",
+    tools: [
+      { name: "React", icon: "logos:react" },
+      { name: "Next.js", icon: "logos:nextjs-icon" },
+      { name: "TypeScript", icon: "logos:typescript-icon" },
+      { name: "Vite", icon: "logos:vitejs" },
+      { name: "SwiftUI", icon: "logos:swift" },
+      { name: "Electron", icon: "logos:electron" },
+    ],
   },
   {
-    project: "Proa",
-    context: "HackMTY 2025 · plataforma web con IA",
-    tools: ["Next.js 14", "TypeScript", "Supabase", "Google Gemini", "MCP"],
+    label: "Backend",
+    tools: [
+      { name: "Node.js", icon: "logos:nodejs-icon" },
+      { name: "Express", icon: "simple-icons:express" },
+      { name: "FastAPI", icon: "logos:fastapi-icon" },
+      { name: "Python", icon: "logos:python" },
+      { name: "Prisma", icon: "simple-icons:prisma" },
+    ],
   },
   {
-    project: "Ambulance System Manager",
-    context: "Clínica Nova · operaciones clínicas",
-    tools: ["FastAPI", "Python", "SwiftUI", "Microsoft SQL Server"],
+    label: "Base de datos",
+    tools: [
+      { name: "Oracle DB", icon: "logos:oracle" },
+      { name: "Microsoft SQL Server", icon: "simple-icons:microsoftsqlserver" },
+      { name: "SQLite", icon: "logos:sqlite" },
+      { name: "Supabase", icon: "logos:supabase-icon" },
+      { name: "MongoDB", icon: "logos:mongodb-icon" },
+    ],
   },
   {
-    project: "Kent",
-    context: "Escritorio · finanzas personales",
-    tools: ["React", "Electron", "Express", "Prisma", "SQLite"],
+    label: "DevOps",
+    tools: [
+      { name: "Git", icon: "logos:git-icon" },
+      { name: "GitHub", icon: "logos:github-icon" },
+      { name: "Docker", icon: "logos:docker-icon" },
+      { name: "Postman", icon: "logos:postman-icon" },
+    ],
   },
 ];
 

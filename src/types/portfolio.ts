@@ -28,8 +28,12 @@ export type Project = {
   learnings: string[];
 };
 
-export type SkillContext = {
-  project: string;
-  context: string;
-  tools: string[];
+export type StackTool = {
+  name: string;
+  icon: string;
+};
+
+export type StackCategory = {
+  label: string;
+  tools: StackTool[];
 };
