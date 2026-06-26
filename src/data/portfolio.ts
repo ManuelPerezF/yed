@@ -209,10 +209,8 @@ export const stackCategories: StackCategory[] = [
     tools: [
       { name: "React", icon: "logos:react" },
       { name: "Next.js", icon: "logos:nextjs-icon" },
-      { name: "TypeScript", icon: "logos:typescript-icon" },
       { name: "Vite", icon: "logos:vitejs" },
       { name: "SwiftUI", icon: "logos:swift" },
-      { name: "Electron", icon: "logos:electron" },
     ],
   },
   {
@@ -221,7 +219,6 @@ export const stackCategories: StackCategory[] = [
       { name: "Node.js", icon: "logos:nodejs-icon" },
       { name: "Express", icon: "simple-icons:express" },
       { name: "FastAPI", icon: "logos:fastapi-icon" },
-      { name: "Python", icon: "logos:python" },
       { name: "Prisma", icon: "simple-icons:prisma" },
     ],
   },
@@ -239,7 +236,6 @@ export const stackCategories: StackCategory[] = [
     label: "DevOps",
     tools: [
       { name: "Git", icon: "logos:git-icon" },
-      { name: "GitHub", icon: "logos:github-icon" },
       { name: "Docker", icon: "logos:docker-icon" },
       { name: "Postman", icon: "logos:postman-icon" },
     ],
