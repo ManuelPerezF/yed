@@ -26,17 +26,19 @@ export function PortfolioBackground({
       <div
         className={cn(
           "portfolio-bg__aurora",
-          isEntry && "portfolio-bg__aurora--entry",
+          isEntry ? "portfolio-bg__aurora--entry" : "portfolio-bg__aurora--ambient",
         )}
       >
         <Aurora
           colorStops={isEntry ? ENTRY_COLORS : AMBIENT_COLORS}
-          amplitude={isEntry ? 1.8 : 1.0}
-          blend={isEntry ? 0.22 : 0.18}
+          amplitude={isEntry ? 1.8 : 1.15}
+          blend={isEntry ? 0.22 : 0.2}
           speed={isEntry ? 1.8 : 1.0}
         />
       </div>
-      <div className="portfolio-bg__vignette" />
+      <div
+        className={cn("portfolio-bg__vignette", !isEntry && "portfolio-bg__vignette--ambient")}
+      />
       <div className="ambient-grain" />
     </div>
   );

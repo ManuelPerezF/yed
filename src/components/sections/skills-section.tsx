@@ -3,27 +3,40 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { skillContexts } from "@/data/portfolio";
+import { Icon } from "@iconify/react";
+import { stackCategories } from "@/data/portfolio";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export function SkillsSection() {
-  const listRef = useRef<HTMLOListElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const rows = listRef.current?.querySelectorAll<HTMLElement>(".skill-context-row");
+    const rows = listRef.current?.querySelectorAll<HTMLElement>(".stack-row");
     if (!rows?.length) return;
     const ctx = gsap.context(() => {
       rows.forEach((row) => {
+        const items = row.querySelectorAll<HTMLElement>(".stack-item");
         gsap.fromTo(
           row,
-          { opacity: 0, x: -28 },
+          { opacity: 0, x: -24 },
           {
             opacity: 1,
             x: 0,
-            duration: 0.65,
+            duration: 0.6,
             ease: "power3.out",
             scrollTrigger: { trigger: row, start: "top 88%" },
+          },
+        );
+        gsap.fromTo(
+          items,
+          { opacity: 0 },
+          {
+            opacity: 1,
+            duration: 0.4,
+            stagger: 0.04,
+            ease: "power2.out",
+            scrollTrigger: { trigger: row, start: "top 85%" },
           },
         );
       });
@@ -34,41 +47,39 @@ export function SkillsSection() {
   return (
     <section className="section-shell">
       <div className="max-w-3xl">
-        <h1 className="display-title">Stack en proyectos reales.</h1>
+        <h1 className="display-title">Stack.</h1>
         <p className="body-copy mt-6">
-          Sin porcentajes autoevaluados. Cada herramienta aparece donde la usé.
+          Herramientas que uso por área: frontend, backend, base de datos y devops.
         </p>
       </div>
 
-      <ol ref={listRef} className="mt-16 space-y-0">
-        {skillContexts.map((block, index) => (
-          <li
-            key={block.project}
-            className="skill-context-row grid gap-6 border-t border-[var(--border)] py-10 md:grid-cols-[minmax(0,0.38fr)_minmax(0,1fr)] md:gap-12"
+      <div ref={listRef} className="mt-16">
+        {stackCategories.map((group, index) => (
+          <div
+            key={group.label}
+            className="stack-row grid gap-4 border-t border-[var(--border)] py-8 md:grid-cols-[minmax(0,0.32fr)_minmax(0,1fr)] md:gap-10 md:py-10"
           >
-            <div>
-              <p className="text-sm text-[var(--muted)]">
+            <div className="flex items-baseline gap-3 md:flex-col md:items-start md:gap-1">
+              <span className="text-sm tabular-nums text-[var(--muted)]">
                 {String(index + 1).padStart(2, "0")}
-              </p>
-              <h2 className="mt-2 text-2xl font-medium tracking-tight md:text-3xl">
-                {block.project}
-              </h2>
-              <p className="mt-2 text-sm text-[var(--muted)]">{block.context}</p>
+              </span>
+              <h2 className="text-xl font-medium tracking-tight md:text-2xl">{group.label}</h2>
             </div>
 
-            <ul className="mt-4 flex flex-wrap gap-2 md:mt-0 md:content-start">
-              {block.tools.map((tool) => (
+            <ul className="flex flex-wrap items-center gap-x-7 gap-y-4">
+              {group.tools.map((tool) => (
                 <li
-                  key={tool}
-                  className="skill-tag px-3 py-1.5 text-sm border border-[var(--border)] text-[oklch(0.94_0.004_290/0.82)] transition-colors duration-300 hover:border-[var(--accent)] hover:text-[var(--foreground)]"
+                  key={tool.name}
+                  className="stack-item flex items-center gap-2 text-sm text-[oklch(0.94_0.004_290/0.82)] transition-colors duration-300 hover:text-[var(--foreground)]"
                 >
-                  {tool}
+                  <Icon icon={tool.icon} className="h-5 w-5 shrink-0" aria-hidden="true" />
+                  {tool.name}
                 </li>
               ))}
             </ul>
-          </li>
+          </div>
         ))}
-      </ol>
+      </div>
     </section>
   );
 }
