@@ -121,11 +121,7 @@ export default function Home() {
   };
 
   const handleBrandClick = () => {
-    if (menuOpen || displaySection === null) {
-      goToLanding();
-      return;
-    }
-    openMenu();
+    goToLanding();
   };
 
   const handleMenuClick = () => {
@@ -170,7 +166,7 @@ export default function Home() {
       case "about":
         return <AboutSection />;
       case "contact":
-        return <ContactSection onNavigate={goToSection} />;
+        return <ContactSection />;
       default:
         return null;
     }

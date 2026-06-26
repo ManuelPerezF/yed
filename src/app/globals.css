@@ -90,6 +90,7 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
   min-height: 3.25rem;
   padding-inline: 1.75rem;
   border-radius: 9999px;
@@ -1154,6 +1155,35 @@ body {
   line-height: 0.88;
   letter-spacing: -0.04em;
   max-width: none;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--foreground);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.4rem;
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.contact-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.contact-link-icon {
+  height: 1.05rem;
+  width: 1.05rem;
+  flex: none;
+}
+
+.contact-link--primary {
+  font-size: 1.0625rem;
 }
 
 .reveal-word {
