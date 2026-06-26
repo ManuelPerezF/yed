@@ -210,6 +210,7 @@ export const stackCategories: StackCategory[] = [
       { name: "React", icon: "logos:react" },
       { name: "Next.js", icon: "logos:nextjs-icon" },
       { name: "Vite", icon: "logos:vitejs" },
+      { name: "Tailwind CSS", icon: "logos:tailwindcss-icon" },
       { name: "SwiftUI", icon: "logos:swift" },
     ],
   },
@@ -233,11 +234,12 @@ export const stackCategories: StackCategory[] = [
     ],
   },
   {
-    label: "DevOps",
+    label: "DevOps / Tools",
     tools: [
       { name: "Git", icon: "logos:git-icon" },
       { name: "Docker", icon: "logos:docker-icon" },
       { name: "Postman", icon: "logos:postman-icon" },
+      { name: "Figma", icon: "logos:figma" },
     ],
   },
 ];
