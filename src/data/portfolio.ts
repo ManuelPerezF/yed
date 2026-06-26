@@ -244,14 +244,14 @@ export const stackCategories: StackCategory[] = [
 
 export const menuLinks: { label: string; section: SectionId }[] = [
   { label: "Proyectos", section: "projects" },
-  { label: "Skills", section: "skills" },
+  { label: "Stack", section: "skills" },
   { label: "Contacto", section: "contact" },
   { label: "Sobre mí", section: "about" },
 ];
 
 export const sectionLabels: Record<SectionId, string> = {
   projects: "Proyectos",
-  skills: "Skills",
+  skills: "Stack",
   about: "Sobre mí",
   contact: "Contacto",
 };
